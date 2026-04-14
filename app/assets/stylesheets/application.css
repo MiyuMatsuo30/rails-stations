@@ -13,3 +13,29 @@
  *= require_tree .
  *= require_self
  */
+.item-table {
+  width: 100%;
+  border-collapse: collapse; /* 枠線を重ねる */
+}
+
+.item-table th, .item-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left; /* 基本は左寄せ */
+}
+
+/* 特定の列の幅を指定 */
+.col-id { width: 5%; }
+.col-name { width: 70%; }
+.col-price { width: 25%; }
+
+/* 数値などを右寄せ */
+.text-right {
+  text-align: right;
+}
+
+.input-large {
+  width: 50%;       /* 幅を最大に */
+  padding: 10px;     /* 高さを出す */
+  font-size: 16px;   /* 文字を大きく */
+}

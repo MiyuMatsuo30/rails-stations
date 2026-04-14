@@ -1,0 +1,35 @@
+<h1><%= @movies.name %></h1>
+
+<table class="item-table">
+    <tr>
+        <th>id</th>
+        <td><%= @movies.id %></td>
+    </tr>
+    <tr>
+        <th>公開年</th>
+        <td><%= @movies.year %></td>
+    </tr>
+    <tr>
+        <th>上映中か</th>
+        <td><%= @movies.is_showing %></td>
+    </tr>
+    <tr>
+        <th>概要</th>
+        <td><%= @movies.description %></td>
+    </tr>
+    <tr>
+        <th>画像URL</th>
+        <td><img src=<%= @movies.image_url %>></td>
+    </tr>
+    <tr>
+        <th>作成日時</th>
+        <td><%= @movies.created_at %></td>
+    </tr>
+    <tr>
+        <th>更新日時</th>
+        <td><%= @movies.updated_at %></td>
+    </tr>
+</table>
+
+<%= link_to "Back", admin_movies_path %>
+<%= link_to "Edit", edit_admin_movie_path(@movies) %>

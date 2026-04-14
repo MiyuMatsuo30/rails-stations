@@ -1,0 +1,32 @@
+<h1>New movie</h1>
+<%= form_with model: [:admin, @movies] do |form| %>
+    <% if form.object.errors.any? %>
+        <p class="error"><%= form.object.errors.full_messages.first %></p>
+    <% end %>
+    <div>
+        タイトル
+        <%= form.text_field :name %>
+    </div>
+    <div>
+        公開年
+        <%= form.text_field :year %>
+    </div>
+    <div>
+        上映中か
+        <%= form.select :is_showing, [["上映中", true], ["公開予定", false]], include_blank: "選択して下さい" %>
+    </div>
+    <div>
+        概要
+        <%= form.text_area :description, class: "input-large" %>
+    </div>
+    <div>
+        画像URL
+        <%= form.text_field :image_url %>
+    </div>
+
+    <div>
+        <%= form.submit %>
+    </div>
+<% end %>
+
+<%= link_to "Back", admin_movies_path %>

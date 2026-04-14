@@ -7,3 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+15.times do |no|
+    Movie.create(:id => "#{no}", :name => "劇場版テック", :year => 2022, :description => "映画の説明", :image_url => "https://picsum.photos/id/237/200/300", :is_showing => true)
+end
