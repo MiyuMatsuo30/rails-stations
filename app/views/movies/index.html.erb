@@ -1,3 +1,16 @@
+<%= form_with url: "/movies", method: :get do |form| %>
+    <%= form.label :keyword, "検索" %>
+    <%= form.search_field :keyword %>
+    <%= form.submit "検索", name: nil %>
+    
+    <%= form.radio_button :is_showing, "全て" %>
+    <%= form.label :is_showing_all, "全て" %>
+    <%= form.radio_button :is_showing, true %>
+    <%= form.label :is_showing_true, "上映中" %>
+    <%= form.radio_button :is_showing, false %>
+    <%= form.label :is_showing_false, "公開予定" %>
+<% end %>
+
 <table class="item-table">
     <tr>
         <th>id</th>
@@ -6,8 +19,7 @@
         <th>上映中か</th>
         <th>概要</th>
         <th>画像URL</th>
-        <th>作成日時</th>
-        <th>更新日時</th>
+        <th>詳細</th>
     </tr>
     <% @movies.each do |movie| %>
     <tr>
@@ -17,8 +29,7 @@
         <td><%= movie["is_showing"] ? "上映中" : "公開予定" %></td>
         <td><%= movie["description"] %></td>
         <td><img src=<%=movie["image_url"]%> ></td>
-        <td><%= movie["created_at"] %></td>
-        <td><%= movie["updated_at"] %></td>
+        <td><%= link_to "詳細", movie_path(movie["id"]) %></td>
     </tr>
     <% end %>
 </table>

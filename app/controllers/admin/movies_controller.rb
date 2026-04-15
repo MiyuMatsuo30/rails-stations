@@ -6,7 +6,8 @@ class Admin::MoviesController < ApplicationController
     end
 
     def show
-        @movies = Movie.find(params[:id])
+        @movie = Movie.find(params[:id])
+        @schedules = Schedule.where(movie_id: params[:id].to_i)
     end
 
     def new
@@ -19,6 +20,7 @@ class Admin::MoviesController < ApplicationController
             flash[:notice] = '作成しました'
             redirect_to admin_movies_path
         else
+            flash[:alert] = '作成に失敗しました'
             render 'new'
         end
     end
@@ -33,6 +35,7 @@ class Admin::MoviesController < ApplicationController
             flash[:notice] = '更新しました'
             redirect_to admin_movies_path
         else
+            flash[:alert] = '更新に失敗しました'
             render 'new'
         end
     end

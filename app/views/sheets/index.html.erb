@@ -1,0 +1,23 @@
+<table class="text-center">
+    <tr>
+        <% @sheets_order[@sheets_order.keys[0]].length.times do |l| %>
+            <% if l == 2 %>
+                <th>スクリーン</th>
+            <% else %>
+                <th>.</th>
+            <% end %>
+        <% end %>
+    </tr>
+    <tr>
+        <% @sheets_order[@sheets_order.keys[0]].length.times do |l| %>
+            <th>:---:</th>
+        <% end %>
+    </tr>
+    <% @sheets_order.each do |row, sheet| %>
+        <tr>
+            <% sheet.each do |sht| %>
+                <td><%= "#{sht["column"]}-#{row}" %></td>
+            <% end %>
+        </tr>
+    <% end %>
+</table>

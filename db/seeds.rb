@@ -8,6 +8,22 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-15.times do |no|
-    Movie.create(:id => "#{no}", :name => "劇場版テック", :year => 2022, :description => "映画の説明", :image_url => "https://picsum.photos/id/237/200/300", :is_showing => true)
+# 3.times do |abc|
+#     5.times do |no|
+#         if abc+1 == 1
+#             Sheet.create(:id => 5*abc+no+1, :column => no+1, :row => 'a')
+#         elsif abc+1 == 2
+#             Sheet.create(:id => 5*abc+no+1, :column => no+1, :row => 'b')
+#         else
+#             Sheet.create(:id => 5*abc+no+1, :column => no+1, :row => 'c')
+#         end
+#     end
+# end
+a=0
+
+[3,9,21,24,27].each do |mo|
+    5.times do |no|
+        Schedule.create(:id => a*5+no, :movie_id => mo, :start_time => "#{(5+(no+1))*2}:00:00", :end_time => "#{(5+(no+1))*2+2}:00:00")
+    end
+    a = a + 1
 end

@@ -39,3 +39,18 @@
   padding: 10px;     /* 高さを出す */
   font-size: 16px;   /* 文字を大きく */
 }
+
+.text-center {
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+}
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+}
