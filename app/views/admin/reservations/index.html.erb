@@ -1,0 +1,31 @@
+<% if flash[:notice] %>
+    <div class="alert alert-success"><%= notice %></div>
+<% end %>
+<% if flash[:alert] %>
+    <div class="alert alert-success"><%= alert %></div>
+<% end %>
+<h1>予約一覧</h1>
+<div><%= link_to "+New", new_admin_reservation_path %></div>
+<table class="item-table">
+    <tr>
+        <th>映画作品</th>
+        <th>座席</th>
+        <th>日時</th>
+        <th>名前</th>
+        <th>メールアドレス</th>
+        <th></th>
+    </tr>
+    <% @reservations.each do |reservation| %>
+    <% if reservation.schedule.movie.is_showing? %>
+    <tr>
+        <td><%= reservation.schedule.movie.name %></td>
+        <!--<td><%#= @movies[@schedule_id_movie[reservation["schedule_id"]][0].movie_id][0].name %></td>-->
+        <td><%= reservation["sheet_id"] %></td>
+        <td><%= reservation["date"].strftime("%Y年%m月%d日") %> <%= reservation.schedule.showing_time %></td>
+        <td><%= reservation["name"] %></td>
+        <td><%=reservation["email"]%></td>
+        <td><%= link_to "詳細", admin_reservation_path(reservation["id"]) %></td>
+    </tr>
+    <% end %>
+    <% end %>
+</table>

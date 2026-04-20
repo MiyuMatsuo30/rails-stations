@@ -1,0 +1,32 @@
+<h1>座席選択</h1>
+<%#= form_with url: "/movies/#{@movie_id}/schedules/#{@schedule_id}/reservations/new", method: :get do |form| %>
+<!--<td><%#= form.radio_button :date, @date %></td>-->
+<table class="text-center">
+    <tr>
+        <% @sheets_order[@sheets_order.keys[0]].length.times do |l| %>
+            <% if l == 2 %>
+                <th>スクリーン</th>
+            <% else %>
+                <th>.</th>
+            <% end %>
+        <% end %>
+    </tr>
+    <tr>
+        <% @sheets_order[@sheets_order.keys[0]].length.times do |l| %>
+            <th>:---:</th>
+        <% end %>
+    </tr>
+    <% @sheets_order.each do |row, sheet| %>
+        <tr>
+            <% sheet.each do |sht| %>
+                <!--<td><%#= form.radio_button :sheet_id, sht["id"] %></td>-->
+                <!--<td><%#= form.label :sheet_name, "#{sht["column"]}-#{row}" %></td>-->
+                <td><%= link_to "#{sht["column"]}-#{row}", new_movie_schedule_reservation_path(@movie_id, @schedule_id, date: @date, sheet_id: sht["id"]) %></td>
+            <% end %>
+        </tr>
+    <% end %>
+</table>
+<%#= form.submit "座席を選択する" %></td>
+<%# end %>
+
+<%= link_to "Back", movie_path(@movie_id) %>

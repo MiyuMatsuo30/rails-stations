@@ -1,0 +1,45 @@
+<h1>映画予約編集ページ</h1>
+<table>
+    <tr>
+        <th>映画タイトル</th>
+        <td><%= @movie_name %></td>
+    </tr>
+<%= form_with model: [:admin, @reservation] do |form| %>
+    <tr>
+        <th>日時</th>
+        <td><%= form.text_field :date, readonly: true %></td>
+    </tr>
+    <tr>
+        <th>sheet_id</th>
+        <td><%= form.text_field :sheet_id %></td>
+    </tr>
+    <tr>
+        <th>schedule_id</th>
+        <td><%= form.text_field :schedule_id, readonly: true %></td>
+    </tr>
+    <tr>
+        <th>名前</th>
+        <td><%= form.text_field :name %></td>
+    </tr>
+    <tr>
+        <th>メールアドレス</th>
+        <td><%= form.text_field :email %></td>
+    </tr>
+</table>
+<tr><%= form.submit "座席を予約する" %></tr>
+<% end %>
+
+<script>
+    function check(){
+        if(window.confirm("本当に削除しますか？")){
+            return true;
+        }else{
+            window.alert("キャンセルされました")
+            return false;
+        }
+    }
+</script>
+<%= button_to "削除", admin_reservation_path(@reservation.id), method: :delete, data: { turbo: false }, form: {onSubmit: "return check()"} %>
+
+
+<div><%= link_to "Back", admin_reservations_path %></div>

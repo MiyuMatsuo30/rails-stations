@@ -1,32 +1,47 @@
+<% if flash[:notice] %>
+    <div class="alert alert-success"><%= notice %></div>
+<% end %>
+<% if flash[:alert] %>
+    <div class="alert alert-success"><%= alert %></div>
+<% end %>
 <h1><%= @movie.name %></h1>
 <table class="item-table">
     <tr>
-        <th>id</th>
-        <th>公開年</th>
-        <th>上映中か</th>
-        <th>概要</th>
-        <th>画像URL</th>
-        <th>作成日時</th>
-        <th>更新日時</th>
+        <th></th>
+        <td><img src="<%= @movie.image_url %>"></td>
     </tr>
     <tr>
-        <td><%= @movie.id %></td>
+        <th>公開年</th>
         <td><%= @movie.year %></td>
+    </tr>
+    <tr>
+        <th>上映中か</th>
         <td><%= @movie.is_showing ? "上映中" : "公開予定" %></td>
+    </tr>
+    <tr>
+        <th>概要</th>
         <td><%= @movie.description %></td>
-        <td><img src=<%= @movie.image_url %>></td>
-        <td><%= @movie.created_at %></td>
-        <td><%= @movie.updated_at %></td>
     </tr>
 </table>
 
-<h1>上映スケジュール</h1>
-<table class="text-center">
-    <% @schedules.each do |schedule| %>
-    <tr>
-        <td><%= schedule["start_time"].strftime("%Y年%m月%d日 %H時%M分") %>〜<%= schedule["end_time"].strftime("%H時%M分") %></td>
-    </tr>
+<% if @movie.is_showing? %>
+    <h1>上映スケジュール</h1>
+    <table class="text-center">
+        <% @schedules.each do |schedule| %>
+        <tr>
+            <td><%= schedule["start_time"].strftime("%H時%M分") %>〜<%= schedule["end_time"].strftime("%H時%M分") %></td>
+        </tr>
+        <% end %>
+    </table>
+
+    <h1>上映予約</h1>
+    <%= form_with url: "/movies/#{@movie.id}/reservation", method: :get do |form| %>
+        <div>
+            <%= form.select :date, [*0..7].map {|n| [(Date.today+n).strftime("%Y年%m月%d日"), Date.today+n]} %>
+            <%= form.select :schedule_id, @schedules.map {|schedule| [schedule.showing_time, schedule.id]} %>
+            <%= form.submit "座席を予約する" %>
+        </div>
     <% end %>
-</table>
+<% end %>
 
 <%= link_to "Back", movies_path %>

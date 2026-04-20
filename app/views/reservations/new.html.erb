@@ -1,0 +1,36 @@
+<h1>映画予約ページ</h1>
+<table>
+    <tr>
+        <th>映画タイトル</th>
+        <td><%= @reservation.schedule.movie.name %></td>
+    </tr>
+<%= form_with model: @reservation do |form| %>
+    <tr>
+        <th>日時</th>
+        <td><%= form.text_field :date, readonly: true %></td>
+        <!--<td><%#= form.text_field :date, disabled: true, value: @reservation.date %></td>-->
+        <!--"#{@date.to_date.strftime("%Y年%m月%d日")} #{@schedule.showing_time}"-->
+    </tr>
+    <tr>
+        <th>sheet_id</th>
+        <td><%= form.text_field :sheet_id, readonly: true %></td>
+        <!--<td><%#= form.text_field :sheet_id, disabled: true, value: @reservation.sheet_id %></td>-->
+    </tr>
+    <tr>
+        <th>schedule_id</th>
+        <td><%= form.text_field :schedule_id, readonly: true %></td>
+        <!--<td><%#= form.text_field :schedule_id, disabled: true, value: @reservation.schedule_id %></td>-->
+    </tr>
+    <tr>
+        <th>名前</th>
+        <td><%= form.text_field :name %></td>
+    </tr>
+    <tr>
+        <th>メールアドレス</th>
+        <td><%= form.text_field :email %></td>
+    </tr>
+</table>
+<tr><%= form.submit "座席を予約する" %></tr>
+<% end %>
+
+<div><%= link_to "Back", "/movies/#{@reservation.schedule.movie.id}/reservation?date=#{@reservation.date}&schedule_id=#{@reservation.schedule_id}" %></div>

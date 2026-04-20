@@ -3,53 +3,56 @@ class Admin::MoviesController < ApplicationController
 
     def index
         @movies = Movie.all
+        @schedules = Schedule.all
+        @movies_id_name = Movie.order(:id, :name).group_by(&:id)
     end
 
     def show
         @movie = Movie.find(params[:id])
         @schedules = Schedule.where(movie_id: params[:id].to_i)
+        @movies_id_name = Movie.order(:id, :name).group_by(&:id)
     end
 
     def new
-        @movies = Movie.new
+        @movie = Movie.new
     end
 
     def create
-        @movies = Movie.new(movie_params)
-        if @movies.save
-            flash[:notice] = '作成しました'
+        @movie = Movie.new(movie_params)
+        if @movie.save
+            flash[:notice] = '映画作品を作成しました'
             redirect_to admin_movies_path
         else
-            flash[:alert] = '作成に失敗しました'
-            render 'new'
+            flash[:alert] = '映画作品の作成に失敗しました'
+            render :new, status: :unprocessable_entity
         end
     end
 
     def edit
-        @movies = Movie.find(params[:id])
+        @movie = Movie.find(params[:id])
     end
 
     def update
-        @movies = Movie.find(params[:id])
-        if @movies.update(movie_params)
-            flash[:notice] = '更新しました'
+        @movie = Movie.find(params[:id])
+        if @movie.update(movie_params)
+            flash[:notice] = '映画作品を更新しました'
             redirect_to admin_movies_path
         else
-            flash[:alert] = '更新に失敗しました'
-            render 'new'
+            flash[:alert] = '映画作品の更新に失敗しました'
+            render :edit, status: :unprocessable_entity
         end
     end
 
     def destroy
-        if @movies.destroy
-            flash[:notice] = '削除しました'
+        if @movie.destroy
+            flash[:notice] = '映画作品を削除しました'
         end
         redirect_to admin_movies_path()
     end
 
     private
     def set_movie
-        @movies = Movie.find(params[:id])
+        @movie = Movie.find(params[:id])
     end
 
     def movie_params

@@ -21,9 +21,10 @@
 # end
 a=0
 
-[3,9,21,24,27].each do |mo|
-    5.times do |no|
-        Schedule.create(:id => a*5+no, :movie_id => mo, :start_time => "#{(5+(no+1))*2}:00:00", :end_time => "#{(5+(no+1))*2+2}:00:00")
-    end
-    a = a + 1
-end
+# [3,9,21,24,27].each do |mo|
+#     5.times do |no|
+#         Schedule.create(:id => a*5+no, :movie_id => mo, :start_time => "#{(5+(no+1))*2}:00:00", :end_time => "#{(5+(no+1))*2+2}:00:00")
+#     end
+#     a = a + 1
+# end
+

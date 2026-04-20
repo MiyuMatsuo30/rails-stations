@@ -1,8 +1,11 @@
 <% if flash[:notice] %>
     <div class="alert alert-success"><%= notice %></div>
 <% end %>
-
+<% if flash[:alert] %>
+    <div class="alert alert-success"><%= alert %></div>
+<% end %>
 <h1>映画一覧</h1>
+<%= link_to "作成", new_admin_movie_path %>
 <table class="item-table">
     <tr>
         <th>id</th>
@@ -22,7 +25,8 @@
         <td><%= movie["year"] %></td>
         <td><%= movie["is_showing"] ? "上映中" : "公開予定" %></td>
         <td><%= movie["description"] %></td>
-        <td><a href=movie["image_url"]> <%= movie["image_url"] %><a></td>
+        <td><img src="<%=movie["image_url"]%>" ></td>
+        <!--<td><a href=movie["image_url"]> <%#= movie["image_url"] %><a></td>-->
         <td><%= movie["created_at"] %></td>
         <td><%= movie["updated_at"] %></td>
         <td><%= link_to "詳細", admin_movie_path(movie["id"]) %></td>
@@ -30,4 +34,28 @@
     <% end %>
 </table>
 
-<%= link_to "作成", new_admin_movie_path %>
+<h1>上映スケジュール</h1>
+<table class="item-table">
+    <tr>
+        <th>ID</th>
+        <th>映画タイトル</th>
+        <th>開始時間</th>
+        <th>終了時間</th>
+        <th>作成日時</th>
+        <th>更新日時</th>
+        <!--<th>詳細</th>-->
+    </tr>
+    <% @schedules.each do |schedule| %>
+    <tr>
+        <td><%= link_to schedule["id"], edit_admin_movie_schedule_path(schedule.movie.id, schedule["id"]) %></td>
+        <td><%= @movies_id_name[schedule["movie_id"]][0]["name"] %></td>
+        <!--<td><%#= schedule["start_time"].strftime("%Y-%m-%d %H:%M:%S") %></td>-->
+        <!--<td><%#= schedule["end_time"].strftime("%Y-%m-%d %H:%M:%S") %></td>-->
+        <td><%= schedule["start_time"].strftime("%H:%M") %></td>
+        <td><%= schedule["end_time"].strftime("%H:%M") %></td>
+        <td><%= schedule["created_at"]%></td>
+        <td><%= schedule["updated_at"]%></td>
+        <!--<td><%#= link_to "詳細", movie_path(movie["id"]) %></td>-->
+    </tr>
+    <% end %>
+</table>
