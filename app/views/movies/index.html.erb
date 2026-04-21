@@ -1,3 +1,9 @@
+<% if flash[:notice] %>
+    <div class="alert alert-success"><%= notice %></div>
+<% end %>
+<% if flash[:alert] %>
+    <div class="alert alert-success"><%= alert %></div>
+<% end %>
 <%= form_with url: "/movies", method: :get do |form| %>
     <%= form.label :keyword, "検索" %>
     <%= form.search_field :keyword %>

@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     sign_up_params[:name] = params[:user][:name]
-    super do |resource|
+    super do |_resource|
       # respond_with resource, location: after_sign_up_path_for(resource)
       redirect_to movies_path, status: 302
       return
@@ -60,13 +60,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # The path used after sign up.
-  def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(_resource)
     movies_path
     # super(resource)
   end
 
-  # The path used after sign up for inactive accounts.
-  def after_inactive_sign_up_path_for(resource)
-    super(resource)
-  end
+  # # The path used after sign up for inactive accounts.
+  # def after_inactive_sign_up_path_for(resource)
+  #   super(resource)
+  # end
 end

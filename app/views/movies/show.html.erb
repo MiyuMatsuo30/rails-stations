@@ -27,9 +27,9 @@
 <% if @movie.is_showing? %>
     <h1>上映スケジュール</h1>
     <table class="text-center">
-        <% @schedules.each do |schedule| %>
+        <% @times.each do |schedule| %>
         <tr>
-            <td><%= schedule["start_time"].strftime("%H時%M分") %>〜<%= schedule["end_time"].strftime("%H時%M分") %></td>
+            <td><%= schedule.showing_time %></td>
         </tr>
         <% end %>
     </table>

@@ -1,9 +1,11 @@
 class MoviesController < ApplicationController
   def index
-    if params[:is_showing] ==  nil
+    if params[:is_showing].nil?
       @movies = Movie.all
-      @movies = Movie.where("name LIKE?", "%#{params[:keyword]}%").or(Movie.where("description LIKE?", "%#{params[:keyword]}%"))
-    else params[:is_showing] !=  "全て"
+      @movies = Movie.where('name LIKE?',
+                            "%#{params[:keyword]}%").or(Movie.where('description LIKE?', "%#{params[:keyword]}%"))
+    else
+      params[:is_showing]
       @movies = Movie.where(is_showing: params[:is_showing])
     end
   end
@@ -11,11 +13,12 @@ class MoviesController < ApplicationController
   def show
     @movie = Movie.find(params[:id])
     @schedules = @movie.schedules.all
+    @times = @movie.schedules.select(:start_time, :end_time).distinct
   end
 
   def reservation
-    @sheets = Sheet.all
-    @sheets_order = Sheet.order(:row, :column).group_by(&:row)
+    @screen_id = Schedule.find(params[:schedule_id]).screen.id
+    @sheets_order = Sheet.where(screen_id: @screen_id).order(:row, :column).group_by(&:row)
     @movie_id = params[:movie_id]
     if params.include?(:schedule_id)
       @schedule_id = params[:schedule_id]
@@ -27,8 +30,6 @@ class MoviesController < ApplicationController
     else
       head :found
     end
-    @res_sheet = Reservation.where(date:@date ,schedule_id: @schedule_id) 
-    # @reservation_exist = @res_sheet.map {|res| res.sheet_id}
-    puts @res_sheet
+    @res_sheet = Reservation.where(date: @date, schedule_id: @schedule_id)
   end
 end

@@ -19,7 +19,7 @@
 #         end
 #     end
 # end
-a=0
+# a=0
 
 # [3,9,21,24,27].each do |mo|
 #     5.times do |no|
@@ -28,3 +28,31 @@ a=0
 #     a = a + 1
 # end
 
+# 5.times do |no|
+#     Movie.create(:id => no+1, :name => "劇場版#{no}", :year => 2026, :description => "概要#{no}", :image_url => "https://picsum.photos/200/300/?blur=#{no+1}", :is_showing => false)
+# end
+
+3.times do |no|
+  Screen.create(name: no + 1)
+end
+
+rows = %w[a b c]
+columns = [1, 2, 3, 4, 5]
+rows.each do |row|
+  columns.each do |column|
+    3.times do |no|
+      Sheet.create(row: row, column: column, screen_id: no + 1)
+    end
+  end
+end
+
+movies = Movie.all
+movies.each do |movie|
+  movie_id = movie.id
+  3.times do |screen|
+    5.times do |no|
+      Schedule.create(movie_id: movie_id, start_time: "#{(5 + (no + 1)) * 2}:00:00",
+                      end_time: "#{(5 + (no + 1)) * 2 + 2}:00:00", screen_id: screen + 1)
+    end
+  end
+end
